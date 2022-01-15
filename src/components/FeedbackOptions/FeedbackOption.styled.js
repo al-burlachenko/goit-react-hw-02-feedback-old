@@ -16,7 +16,7 @@ export const ButtonItem = styled.button`
   line-height: 1;
   text-decoration: none;
   text-align: center;
-  // text-transform: capitalize;
+  text-transform: capitalize;
 
   transition: box-shadow 600ms ease-in-out, color 300ms ease-in-out;
 

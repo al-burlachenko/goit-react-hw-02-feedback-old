@@ -19,28 +19,27 @@ class App extends Component {
     });
   };
 
-  countTotalFeedback(good, neutral, bad) {
-    return good + neutral + bad;
+  countTotalFeedback() {
+    return Object.values(this.state).reduce((acc, value) => acc + value, 0);
   }
 
-  countPositiveFeedbackPercentage(good, neutral, bad) {
-    return good === 0 ? 0 : (good / (neutral + bad + good)) * 100;
+  countPositiveFeedbackPercentage() {
+    return this.state.good === 0
+      ? 0
+      : Number.parseInt((this.state.good / this.countTotalFeedback()) * 100);
   }
 
   render() {
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback(good, neutral, bad);
-    const positivePercentage = this.countPositiveFeedbackPercentage(
-      good,
-      neutral,
-      bad
-    );
+    const total = this.countTotalFeedback();
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+    const options = Object.keys(this.state);
+    const statistics = Object.entries(this.state);
 
     return (
       <>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={Object.keys(this.state)}
+            options={options}
             onLeaveFeedback={this.onLeaveFeedback}
           />
         </Section>
@@ -48,9 +47,7 @@ class App extends Component {
         <Section title="Statistics">
           {Boolean(total) && (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              statistics={statistics}
               total={total}
               positivePercentage={positivePercentage}
             />
@@ -72,9 +69,7 @@ FeedbackOptions.propTypes = {
 };
 
 Statistics.propTypes = {
-  good: PropTypes.number,
-  neutral: PropTypes.number,
-  bad: PropTypes.number,
+  statistics: PropTypes.arrayOf(PropTypes.array),
   total: PropTypes.number,
   positivePercentage: PropTypes.number,
 };
