@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { StatisticsItem, StatisticsList } from './Statistics.styled';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+
+import { StatisticsItem, StatisticsList } from "./Statistics.styled";
 
 class Statistics extends Component {
   render() {
@@ -20,3 +22,11 @@ class Statistics extends Component {
 }
 
 export default Statistics;
+
+Statistics.propTypes = {
+  good: PropTypes.number,
+  neutral: PropTypes.number,
+  bad: PropTypes.number,
+  total: PropTypes.number,
+  positivePercentage: PropTypes.number,
+};

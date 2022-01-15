@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import Statistics from '../Statistics';
-import FeedbackOptions from '../FeedbackOptions';
-import Section from '../Section';
-import Notification from '../Notification';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+
+import Statistics from "../Statistics";
+import FeedbackOptions from "../FeedbackOptions";
+import Section from "../Section";
+import Notification from "../Notification";
 
 class App extends Component {
   state = {
@@ -11,8 +13,8 @@ class App extends Component {
     bad: 0,
   };
 
-  onLeaveFeedback = value => {
-    this.setState(prevState => {
+  onLeaveFeedback = (value) => {
+    this.setState((prevState) => {
       return { [value]: prevState[value] + 1 };
     });
   };
@@ -31,7 +33,7 @@ class App extends Component {
     const positivePercentage = this.countPositiveFeedbackPercentage(
       good,
       neutral,
-      bad,
+      bad
     );
 
     return (
@@ -61,3 +63,22 @@ class App extends Component {
 }
 
 export default App;
+
+Section.propTypes = { title: PropTypes.string };
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string),
+  onLeaveFeedback: PropTypes.func,
+};
+
+Statistics.propTypes = {
+  good: PropTypes.number,
+  neutral: PropTypes.number,
+  bad: PropTypes.number,
+  total: PropTypes.number,
+  positivePercentage: PropTypes.number,
+};
+
+Notification.propTypes = {
+  message: PropTypes.string,
+};
